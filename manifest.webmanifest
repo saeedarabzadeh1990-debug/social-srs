@@ -1,0 +1,94 @@
+{
+  "id": "./",
+  "name": "Social SRS — فلش‌کارت معاشرت",
+  "short_name": "Social SRS",
+  "description": "فلش‌کارت‌های مهارت گفت‌وگو و معاشرت با مرور فاصله‌دار؛ آفلاین و نصب‌پذیر.",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": [
+    "fullscreen",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
+  "background_color": "#0d0e11",
+  "theme_color": "#0d0e11",
+  "categories": [
+    "education",
+    "productivity",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "شروع مرور",
+      "short_name": "مرور",
+      "description": "کارت‌های امروز را مرور کن",
+      "url": "./?action=study",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "افزودن کارت",
+      "short_name": "کارت جدید",
+      "description": "یک کارت تازه بساز",
+      "url": "./?action=add",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "صفحه‌ی امروز"
+    },
+    {
+      "src": "screenshots/narrow.png",
+      "sizes": "780x1688",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "صفحه‌ی امروز روی موبایل"
+    }
+  ]
+}
