@@ -1,6 +1,7 @@
 // store.js — وضعیت برنامه و ذخیره‌سازی در localStorage (نسخه‌دار، با مهاجرت از نسخه‌ی قدیمی).
 import { DEFAULTS as SRS, NEW, LEARN, REVIEW, AGAIN, newProg, answer, studyDay, buildSession } from './srs.js';
 import { DEFAULT_DECK } from './data.js';
+import { PACKS } from './packs.js';
 import { uid } from './util.js';
 
 export const KEY = 'ssrs.v2';
@@ -41,6 +42,7 @@ function fresh() {
     log: { days: {}, rev: [] },
     practice: {},
     extra: { day: 0, new: 0 },
+    packs: ['core'],
     settings: { ...DEFAULT_SETTINGS },
     meta: { created: Date.now(), migrated: false },
   };
@@ -57,6 +59,8 @@ export function normalize(raw) {
   s.extra = { day: 0, new: 0, ...(s.extra || {}) };
   s.settings = { ...DEFAULT_SETTINGS, ...(s.settings || {}) };
   s.meta = { ...base.meta, ...(s.meta || {}) };
+  // دک‌های نصب‌شده: اگر ثبت نشده باشد، از شناسه‌ی کارت‌ها حدس بزن (سازگار با داده‌های قدیمی)
+  s.packs = Array.isArray(raw && raw.packs) ? raw.packs.filter((id) => PACKS.some((p) => p.id === id)) : PACKS.filter((p) => s.cards.some((c) => c.id.startsWith(p.prefix))).map((p) => p.id);
   return s;
 }
 
@@ -175,6 +179,23 @@ export function upsertCard(data) {
   else S.cards.push({ ...c, created: t, updated: t });
   saveSoon(); emit();
   return c.id;
+}
+// ── دک‌ها ───────────────────────────────────────────────────────────────────
+export const installedPacks = () => S.packs;
+export function installPack(id) {
+  const pack = PACKS.find((p) => p.id === id);
+  if (!pack || S.packs.includes(id)) return 0;
+  const have = new Set(S.cards.map((c) => c.id));
+  const t = Date.now();
+  let added = 0;
+  for (const c of pack.cards) {
+    if (have.has(c.id)) continue;
+    S.cards.push({ ...cleanCard(c), created: t, updated: t });
+    added++;
+  }
+  S.packs = [...S.packs, id];
+  saveSoon(); emit();
+  return added;
 }
 export function deleteCard(id) {
   const i = S.cards.findIndex((c) => c.id === id);

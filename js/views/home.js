@@ -2,8 +2,9 @@
 import * as store from '../store.js';
 import * as P from '../platform.js';
 import { nextDue } from '../srs.js';
-import { h, mount, icon, n, pct, fmtDelay, dayWeekday, dayDateFull, openDialog, closeDialog } from '../util.js';
+import { h, mount, icon, n, pct, fmtDelay, dayWeekday, dayDateFull, openDialog, closeDialog, toast } from '../util.js';
 import { allTags, openEditor } from './editor.js';
+import { PACKS } from '../packs.js';
 
 const HIDE_MS = 14 * 86400000;
 
@@ -35,6 +36,7 @@ export function render(root) {
           h('button', { class: 'icon-btn', title: 'کارت جدید', 'aria-label': 'کارت جدید', onclick: () => openEditor(null, { onDone: draw }) }, icon('plus')))),
 
       installBanner(),
+      ...packBanners(),
       hero(sess, c, done, left, S),
       practiceCard(),
 
@@ -45,6 +47,15 @@ export function render(root) {
 
       weekStrip(t),
       freeStudy());
+  }
+
+  // ── دک‌های آماده‌ی افزودن ────────────────────────────────────────────────────
+  function packBanners() {
+    return PACKS.filter((p) => !store.installedPacks().includes(p.id)).map((p) =>
+      h('section', { class: 'banner' },
+        h('span', { class: 'banner-ic' }, icon('cards')),
+        h('div', { class: 'banner-tx' }, h('b', {}, p.name), h('span', { class: 'muted' }, `${p.description} (${n(p.cards.length)} کارت)`)),
+        h('button', { class: 'btn primary small', onclick: () => { const k = store.installPack(p.id); toast(`${n(k)} کارت جدید اضافه شد.`); draw(); } }, icon('plus'), 'افزودن')));
   }
 
   // ── بنر نصب ────────────────────────────────────────────────────────────────

@@ -5,6 +5,7 @@ import * as io from '../io.js';
 import { DEFAULTS as SRS } from '../srs.js';
 import { h, mount, icon, n, toast, openDialog, closeDialog, confirmBox, fmtStamp } from '../util.js';
 import { iosHelp } from './home.js';
+import { PACKS } from '../packs.js';
 
 const ACCENTS = [['blue', 'آبی'], ['green', 'سبز'], ['violet', 'بنفش'], ['rose', 'صورتی'], ['amber', 'کهربایی']];
 const SRS_KEYS = ['newPerDay', 'revPerDay', 'learnSteps', 'relearnSteps', 'gradIvl', 'easyIvl', 'startEase', 'easyBonus', 'hardIvl', 'maxIvl', 'rollover', 'leechAt'];
@@ -55,6 +56,11 @@ export function render(root) {
           row('آستانه‌ی «مشکل‌دار»', 'تعداد فراموشی', num(s.leechAt, 2, 50, 1, (v) => set('leechAt', v))),
           h('div', { class: 'row-actions' },
             h('button', { class: 'btn small', onclick: () => { store.setSettings(Object.fromEntries(SRS_KEYS.map((k) => [k, SRS[k]]))); draw(); toast('تنظیمات SRS به پیش‌فرض برگشت.'); } }, 'بازگشت به پیش‌فرض')))),
+
+      group('دک‌ها', ...PACKS.map((p) => row(p.name, `${n(p.cards.length)} کارت`,
+        store.installedPacks().includes(p.id)
+          ? h('span', { class: 'muted' }, 'اضافه شده')
+          : btn('plus', 'افزودن', () => { const k = store.installPack(p.id); toast(`${n(k)} کارت جدید اضافه شد.`); draw(); })))),
 
       group('برنامه', ...appRows()),
 
