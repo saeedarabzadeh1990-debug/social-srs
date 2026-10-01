@@ -46,6 +46,7 @@ js/platform.js        نصب، تمام‌صفحه، سرویس‌ورکر، bad
 js/util.js            DOM، آیکن‌ها، قالب فارسی، دیالوگ
 .github/workflows/    انتشار خودکار در GitHub Pages
 js/data.js            دک پیش‌فرض (۲۰ قانون)
+js/packs.js, packs-more.js  دک‌های افزودنی ۲ تا ۴ (هرکدام ۲۰ کارت)
 js/views/*.js         صفحه‌ها: امروز، مرور، کارت‌ها، آمار، تنظیمات، ویرایشگر
 tests/                تست‌های واحد: node --test tests/*.test.mjs
 ```

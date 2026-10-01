@@ -1,5 +1,6 @@
 // دک‌های افزودنی. هر دک با یک دکمه به کارت‌های کاربر اضافه می‌شود و روی پیشرفت کارت‌های موجود اثری ندارد.
 import { DEFAULT_DECK } from './data.js';
+import { PACK_LEVEL3, PACK_LEVEL4 } from './packs-more.js';
 
 export const PACK_LEVEL2 = {
   name: 'دک ۲: شروع، ادامه و پایان گفتگو',
@@ -111,4 +112,6 @@ export const PACK_LEVEL2 = {
 export const PACKS = [
   { id: 'core', name: DEFAULT_DECK.name, description: DEFAULT_DECK.description, cards: DEFAULT_DECK.cards, prefix: 'social-' },
   { id: 'level2', ...PACK_LEVEL2, prefix: 'social2-' },
+  { id: 'level3', ...PACK_LEVEL3, prefix: 'social3-' },
+  { id: 'level4', ...PACK_LEVEL4, prefix: 'social4-' },
 ];

@@ -52,3 +52,14 @@ test('دک‌های افزودنی: شناسه‌ها یکتا و فیلدها �
   const s = store.normalize({ cards: store.cards() });
   assert.deepEqual([...s.packs].sort(), ['core', 'level2']);
 });
+
+test('دک‌های ۳ و ۴: هرکدام ۲۰ کارت دارند و نصب می‌شوند', async () => {
+  globalThis.localStorage = { getItem: () => null, setItem() {}, removeItem() {} };
+  globalThis.addEventListener = () => {};
+  globalThis.document = { addEventListener() {}, visibilityState: 'visible' };
+  const store = await import('../js/store.js');
+  store.load();
+  assert.equal(store.installPack('level3'), 20);
+  assert.equal(store.installPack('level4'), 20);
+  assert.ok(['level3', 'level4'].every((id) => store.installedPacks().includes(id)));
+});

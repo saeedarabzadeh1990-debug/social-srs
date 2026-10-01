@@ -1,6 +1,6 @@
 // Service Worker — کش کامل برنامه برای کار آفلاین.
 // با هر انتشار جدید، VERSION را عوض کن تا کاربران نسخه‌ی تازه را بگیرند.
-const VERSION = '2.0.0';
+const VERSION = '2.1.0';
 const CACHE = `social-srs-${VERSION}`;
 
 const ASSETS = [
@@ -14,6 +14,7 @@ const ASSETS = [
   './js/store.js',
   './js/data.js',
   './js/packs.js',
+  './js/packs-more.js',
   './js/util.js',
   './js/io.js',
   './js/platform.js',
